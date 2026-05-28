@@ -504,24 +504,7 @@ elif page_key == "Monthly Report":
             )
             st.plotly_chart(fig, use_container_width=True)
 
-    with tab_pie:
-        pie_labels = ["Full Day", "Half Day", "Short Day", "Absent"]
-        pie_values = [total_full, total_half, total_short, total_abs]
-        pie_colors = ["#4ade80", "#fbbf24", "#c084fc", "#f87171"]
-        fig2 = go.Figure(go.Pie(
-            labels=pie_labels, values=pie_values,
-            marker_colors=pie_colors,
-            hole=0.45,
-            textfont_size=13,
-        ))
-        fig2.update_layout(
-            title=f"Overall Status Mix — {month_name} {int(year)}",
-            plot_bgcolor="#0f1117",
-            paper_bgcolor="#0f1117",
-            font_color="#e8eaf0",
-        )
-        st.plotly_chart(fig2, use_container_width=True)
-
+  
     with tab_detail:
         employees = get_all_employees()
         emp_names = {e["id"]: e["name"] for e in employees}
