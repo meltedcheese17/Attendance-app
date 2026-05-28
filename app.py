@@ -130,10 +130,14 @@ st.markdown("""
   }
 
   /* Inputs */
-  .stTextInput input, .stSelectbox select, .stTimeInput input {
-    background: #12151f !important;
+  /* Inputs */
+  div[data-testid="stTextInput"] input, 
+  div[data-testid="stSelectbox"] div[data-baseweb="select"], 
+  div[data-testid="stTimeInput"] input {
+    background-color: #12151f !important;
     border: 1px solid #2a2d3e !important;
     color: #e8eaf0 !important;
+    -webkit-text-fill-color: #e8eaf0 !important;
     border-radius: 8px !important;
   }
 
