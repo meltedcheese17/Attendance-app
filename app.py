@@ -484,7 +484,7 @@ elif page_key == "Monthly Report":
     st.dataframe(display_df, use_container_width=True, hide_index=True)
 
     # ── Charts ────────────────────────────────────────────────────────────────
-    tab_bar, tab_pie, tab_detail = st.tabs(["📊 Attendance Bars", "🥧 Status Breakdown", "📆 Daily Detail"])
+    tab_bar, tab_detail = st.tabs(["📊 Attendance Bars", "📆 Daily Detail"])
 
     with tab_bar:
         if not df.empty:
