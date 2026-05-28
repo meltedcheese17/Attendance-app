@@ -514,8 +514,8 @@ elif page_key == "Monthly Report":
             if not daily:
                 st.info("No records for this employee this month.")
             else:
-                daily_df = pd.DataFrame(daily)[["log_date","present","arrival_time","departure_time","status","notes"]]
-                daily_df.columns = ["Date","Present","Arrival","Departure","Status","Notes"]
+                daily_df = pd.DataFrame(daily)[["log_date","present","arrival_time","departure_time","status"]]
+                daily_df.columns = ["Date","Present","Arrival","Departure","Status"]
                 daily_df["Present"] = daily_df["Present"].map({1:"✅", 0:"❌"})
                 st.dataframe(daily_df, use_container_width=True, hide_index=True)
 
