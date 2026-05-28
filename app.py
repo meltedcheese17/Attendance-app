@@ -39,6 +39,7 @@ st.markdown("""
 
   html, body, [class*="css"] {
     font-family: 'DM Sans', sans-serif;
+    color:white;
   }
   h1, h2, h3, .stMarkdown h1, .stMarkdown h2 {
     font-family: 'Syne', sans-serif !important;
