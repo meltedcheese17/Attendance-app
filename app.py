@@ -138,7 +138,8 @@ st.markdown("""
   }
 
   /* Remove Streamlit branding */
-  #MainMenu, footer, header { visibility: hidden; }
+  #MainMenu, footer, { visibility: hidden; }
+  header { background: transparent !important; }
 
   /* Divider */
   hr { border-color: #1e2130; }
