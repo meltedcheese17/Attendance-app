@@ -275,15 +275,23 @@ if page_key == "Daily Log":
         def_in_t  = time_str_to_obj(sched.get("expected_in",  "09:00"))
         def_out_t = time_str_to_obj(sched.get("expected_out", "18:00"))
 
+        # 1. ADDED: Set the default times in session state FIRST
+        if key_a not in st.session_state:
+            st.session_state[key_a] = default_arrival or def_in_t
+        if key_d not in st.session_state:
+            st.session_state[key_d] = default_depart or def_out_t
+
         cols = st.columns([0.4, 2.5, 1.5, 1.2, 1.2, 1.5])
         present  = cols[0].checkbox("", value=default_present, key=key_p, label_visibility="collapsed")
         cols[1].markdown(f"**{emp['name']}**")
         cols[2].markdown(f"<small style='color:#8b90a8'>{emp['role']}</small>", unsafe_allow_html=True)
 
         if present:
-            arrival  = cols[3].time_input("In",  value=default_arrival  or def_in_t,  key=key_a,  label_visibility="collapsed", step=300)
-            departure= cols[4].time_input("Out", value=default_depart   or def_out_t, key=key_d,  label_visibility="collapsed", step=300)
-            arr_str  = arrival.strftime("%H:%M")   if arrival   else ""
+            # 2. CHANGED: Removed the 'value=' parameter so it reads from session state
+            arrival  = cols[3].time_input("In",  key=key_a,  label_visibility="collapsed", step=300)
+            departure= cols[4].time_input("Out", key=key_d,  label_visibility="collapsed", step=300)
+            
+            arr_str  = arrival.strftime("%H:%M")   if arrival    else ""
             dep_str  = departure.strftime("%H:%M") if departure else ""
             # live status preview
             from database import _calc_status
