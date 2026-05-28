@@ -202,7 +202,6 @@ with st.sidebar:
     page = st.radio(
         "Navigation",
         ["📅  Daily Log", "👥  Employees", "📊  Monthly Report", "⚙️  Settings"],
-        label_visibility="collapsed",
     )
     st.markdown("---")
     st.caption("AttendIQ v1.0 · Built with Streamlit")
