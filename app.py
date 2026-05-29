@@ -131,15 +131,24 @@ st.markdown("""
   }
 
   /* Inputs */
-  /* Inputs */
-  div[data-testid="stTextInput"] input, 
-  div[data-testid="stSelectbox"] div[data-baseweb="select"], 
-  div[data-testid="stTimeInput"] input {
+  /* Inputs - Outer Wrappers */
+  div[data-testid="stTextInput"] div[data-baseweb="input"],
+  div[data-testid="stSelectbox"] div[data-baseweb="select"],
+  div[data-testid="stTimeInput"] div[data-baseweb="select"],
+  div[data-testid="stTimeInput"] div[data-baseweb="input"] {
     background-color: #12151f !important;
     border: 1px solid #2a2d3e !important;
+    border-radius: 8px !important;
+  }
+
+  /* Inputs - Inner Text Fields */
+  div[data-testid="stTextInput"] input,
+  div[data-testid="stTimeInput"] input,
+  div[data-testid="stSelectbox"] input {
     color: #e8eaf0 !important;
     -webkit-text-fill-color: #e8eaf0 !important;
-    border-radius: 8px !important;
+    background-color: transparent !important; /* This removes the blocking box */
+    border: none !important;
   }
 
   /* Remove Streamlit branding */
