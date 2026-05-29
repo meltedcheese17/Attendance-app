@@ -273,6 +273,10 @@ if page_key == "Daily Log":
         st.markdown('<hr style="margin:4px 0 10px 0">', unsafe_allow_html=True)
 
         rows_data = []
+        
+        # 1. Check if this is a brand new day being logged
+        is_new_day = (len(saved_records) == 0)
+
         for emp in employees:
             eid    = emp["id"]
             rec    = existing.get(eid, {})
@@ -280,16 +284,18 @@ if page_key == "Daily Log":
             key_a  = f"arrival_{eid}"
             key_d  = f"depart_{eid}"
 
-            default_present = bool(rec.get("present", False))
+            # 2. Default to PRESENT if it is a new day, otherwise keep whatever was saved
+            default_present = bool(rec.get("present", is_new_day))
+
             default_arrival = time_str_to_obj(rec.get("arrival_time", ""))
             default_depart  = time_str_to_obj(rec.get("departure_time", ""))
 
-            # get schedule for default times
+            # 3. Fetch this employee's specifically assigned schedule!
             sched = get_schedule(eid) or {}
             def_in_t  = time_str_to_obj(sched.get("expected_in",  "09:00"))
             def_out_t = time_str_to_obj(sched.get("expected_out", "18:00"))
 
-            # Set the default times in session state FIRST (Prevents overwriting issue)
+            # 4. If no time is saved yet, inject their expected schedule into the UI
             if key_a not in st.session_state:
                 st.session_state[key_a] = default_arrival or def_in_t
             if key_d not in st.session_state:
@@ -301,6 +307,7 @@ if page_key == "Daily Log":
             cols[2].markdown(f"<small style='color:#8b90a8'>{emp['role']}</small>", unsafe_allow_html=True)
 
             if present:
+                # 5. Times show up automatically, restricted to 15-min intervals (step=900)
                 arrival  = cols[3].time_input("In",  key=key_a,  label_visibility="collapsed", step=900)
                 departure= cols[4].time_input("Out", key=key_d,  label_visibility="collapsed", step=900)
                 
