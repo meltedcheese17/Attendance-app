@@ -301,8 +301,8 @@ if page_key == "Daily Log":
             cols[2].markdown(f"<small style='color:#8b90a8'>{emp['role']}</small>", unsafe_allow_html=True)
 
             if present:
-                arrival  = cols[3].time_input("In",  key=key_a,  label_visibility="collapsed", step=300)
-                departure= cols[4].time_input("Out", key=key_d,  label_visibility="collapsed", step=300)
+                arrival  = cols[3].time_input("In",  key=key_a,  label_visibility="collapsed", step=900)
+                departure= cols[4].time_input("Out", key=key_d,  label_visibility="collapsed", step=900)
                 
                 arr_str  = arrival.strftime("%H:%M")   if arrival    else ""
                 dep_str  = departure.strftime("%H:%M") if departure else ""
@@ -412,8 +412,8 @@ elif page_key == "Employees":
                         all_days   = DAYS_OF_WEEK
                         saved_days = sched.get("work_days", "Mon,Tue,Wed,Thu,Fri").split(",")
                         sel_days   = st.multiselect("Working Days", all_days, default=saved_days, key=f"days_{emp['id']}")
-                        t_in  = st.time_input("Expected Clock-In",  value=time_str_to_obj(exp_in)  or datetime.strptime("09:00","%H:%M").time(), key=f"in_{emp['id']}",  step=300)
-                        t_out = st.time_input("Expected Clock-Out", value=time_str_to_obj(exp_out) or datetime.strptime("18:00","%H:%M").time(), key=f"out_{emp['id']}", step=300)
+                        t_in  = st.time_input("Expected Clock-In",  value=time_str_to_obj(exp_in)  or datetime.strptime("09:00","%H:%M").time(), key=f"in_{emp['id']}",  step=900)
+                        t_out = st.time_input("Expected Clock-Out", value=time_str_to_obj(exp_out) or datetime.strptime("18:00","%H:%M").time(), key=f"out_{emp['id']}", step=900)
 
                         if st.button("Save Schedule", key=f"sched_{emp['id']}"):
                             upsert_schedule(emp["id"], sel_days, t_in.strftime("%H:%M"), t_out.strftime("%H:%M"))
@@ -448,8 +448,8 @@ elif page_key == "Employees":
             st.markdown("**Default Schedule**")
             sc1, sc2, sc3 = st.columns(3)
             sel_days = sc1.multiselect("Working Days", DAYS_OF_WEEK, default=["Mon","Tue","Wed","Thu","Fri"])
-            t_in     = sc2.time_input("Expected In",  value=datetime.strptime("09:00","%H:%M").time(), step=300)
-            t_out    = sc3.time_input("Expected Out", value=datetime.strptime("18:00","%H:%M").time(), step=300)
+            t_in     = sc2.time_input("Expected In",  value=datetime.strptime("09:00","%H:%M").time(), step=900)
+            t_out    = sc3.time_input("Expected Out", value=datetime.strptime("18:00","%H:%M").time(), step=900)
 
             submitted = st.form_submit_button("➕  Add Employee", type="primary", use_container_width=True)
             if submitted:
@@ -590,8 +590,8 @@ elif page_key == "Settings":
 
         st.markdown("#### 📅  Defaults")
         c1, c2 = st.columns(2)
-        default_in  = c1.time_input("Default Clock-In",  value=time_str_to_obj(get_setting("default_in","09:00"))  or datetime.strptime("09:00","%H:%M").time(), step=300)
-        default_out = c2.time_input("Default Clock-Out", value=time_str_to_obj(get_setting("default_out","18:00")) or datetime.strptime("18:00","%H:%M").time(), step=300)
+        default_in  = c1.time_input("Default Clock-In",  value=time_str_to_obj(get_setting("default_in","09:00"))  or datetime.strptime("09:00","%H:%M").time(), step=900)
+        default_out = c2.time_input("Default Clock-Out", value=time_str_to_obj(get_setting("default_out","18:00")) or datetime.strptime("18:00","%H:%M").time(), step=900)
 
         saved = st.form_submit_button("💾  Save Settings", type="primary")
         if saved:
