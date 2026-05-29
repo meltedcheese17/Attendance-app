@@ -307,12 +307,19 @@ if page_key == "Daily Log":
             cols[2].markdown(f"<small style='color:#8b90a8'>{emp['role']}</small>", unsafe_allow_html=True)
 
             if present:
-                # 5. Times show up automatically, restricted to 15-min intervals (step=900)
+                # Times show up automatically, restricted to 15-min intervals (step=900)
                 arrival  = cols[3].time_input("In",  key=key_a,  label_visibility="collapsed", step=900)
                 departure= cols[4].time_input("Out", key=key_d,  label_visibility="collapsed", step=900)
                 
                 arr_str  = arrival.strftime("%H:%M")   if arrival    else ""
                 dep_str  = departure.strftime("%H:%M") if departure else ""
+                
+                # 🛑 NEW LOGIC: Arrival cannot be after departure
+                if arrival and departure and arrival > departure:
+                    cols[5].markdown('<span class="badge-absent">⚠️ Invalid Time</span>', unsafe_allow_html=True)
+                    # We pass "ERROR" to rows_data so the save button knows it failed
+                    rows_data.append((eid, present, "ERROR", "ERROR"))
+                    continue # Skip the normal status preview for this row
                 
                 # live status preview
                 from database import _calc_status
@@ -330,13 +337,19 @@ if page_key == "Daily Log":
 
         st.markdown("---")
 
+        st.markdown("---")
+
         if save_all_btn:
-            for eid, present, arr, dep in rows_data:
-                upsert_attendance(eid, log_date_str, present, arr or None, dep or None)
-            
-            # Clear edit mode to trigger View Mode
-            st.session_state.edit_date = None
-            st.rerun() # Forces page to refresh immediately
+            # 🛑 NEW LOGIC: Check if any row triggered our "ERROR" flag above
+            if any(arr == "ERROR" for _, _, arr, _ in rows_data):
+                st.error("❌ Cannot save: One or more employees have an Arrival time set after their Departure time. Please fix the highlighted rows.")
+            else:
+                for eid, present, arr, dep in rows_data:
+                    upsert_attendance(eid, log_date_str, present, arr or None, dep or None)
+                
+                # Clear edit mode to trigger View Mode
+                st.session_state.edit_date = None
+                st.rerun() # Forces page to refresh immediately
 
     else:
         # ---------------------------------------------------------
