@@ -301,7 +301,7 @@ if page_key == "Daily Log":
             cols[2].markdown(f"<small style='color:#8b90a8'>{emp['role']}</small>", unsafe_allow_html=True)
 
             if present:
-                arrival  = cols[3].time_input("In",  key=key_a,  label_visibility="collapsed", step=300)
+                arrival  = cols[3].time_input("In",  key=key_a,  label_visibility="expanded", step=300)
                 departure= cols[4].time_input("Out", key=key_d,  label_visibility="collapsed", step=300)
                 
                 arr_str  = arrival.strftime("%H:%M")   if arrival    else ""
