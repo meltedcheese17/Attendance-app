@@ -298,6 +298,7 @@ if page_key == "Daily Log":
             
             arr_str  = arrival.strftime("%H:%M")   if arrival    else ""
             dep_str  = departure.strftime("%H:%M") if departure else ""
+            
             # live status preview
             from database import _calc_status
             sch_in  = sched.get("expected_in", "09:00")
@@ -439,10 +440,21 @@ elif page_key == "Employees":
 elif page_key == "Monthly Report":
     st.markdown('<div class="section-title">Monthly Overview & Analytics</div>', unsafe_allow_html=True)
 
-    # Month / Year selectors
-    col_y, col_m, _ = st.columns([1, 1, 3])
-    year  = col_y.number_input("Year",  min_value=2020, max_value=2030, value=date.today().year,  step=1)
-    month = col_m.number_input("Month", min_value=1,    max_value=12,   value=date.today().month, step=1)
+    # Month / Year selectors (Calendar Style)
+    col_date, _ = st.columns([2, 4])
+    
+    # Opens a calendar UI. The user picks any day in the target month.
+    selected_date = col_date.date_input(
+        "Select Month & Year",
+        value=date.today(),
+        min_value=date(2020, 1, 1),
+        max_value=date(2030, 12, 31),
+        format="MM/YYYY"  # Hides the day in the text box (Requires Streamlit 1.28+)
+    )
+    
+    # Extract the integers so the rest of your code works perfectly without changes
+    year  = selected_date.year
+    month = selected_date.month
 
     summary = get_monthly_summary(int(year), int(month))
     month_name = calendar.month_name[int(month)]
