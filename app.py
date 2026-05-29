@@ -233,13 +233,9 @@ st.markdown(
 #  PAGE 1 — DAILY LOG
 # ════════════════════════════════════════════════════════════════════════════
 if page_key == "Daily Log":
-    col_date, col_save = st.columns([2, 1])
-    with col_date:
-        log_date = st.date_input("Select Date", value=date.today(), key="log_date")
-    with col_save:
-        st.markdown("<br>", unsafe_allow_html=True)
-        save_all_btn = st.button("💾  Save All Records", type="primary", use_container_width=True)
-
+    
+    # 1. Select Date (Moved outside columns to keep UI clean)
+    log_date = st.date_input("Select Date", value=date.today(), key="log_date")
     log_date_str = log_date.strftime("%Y-%m-%d")
     employees    = get_all_employees()
 
@@ -248,95 +244,129 @@ if page_key == "Daily Log":
         st.stop()
 
     # Pre-load existing records for the chosen date
-    existing = {r["employee_id"]: r for r in get_attendance_for_date(log_date_str)}
-
-    st.markdown('<div class="section-title">Attendance Roster</div>', unsafe_allow_html=True)
-
-    # Column headers
-    hdr = st.columns([0.4, 2.5, 1.5, 1.2, 1.2, 1.5])
-    for col, label in zip(hdr, ["✓", "Employee", "Role", "Arrival", "Departure", "Status"]):
-        col.markdown(f"**{label}**")
-    st.markdown('<hr style="margin:4px 0 10px 0">', unsafe_allow_html=True)
-
-    # Store widget states in session
-    if "att_state" not in st.session_state:
-        st.session_state.att_state = {}
-
-    rows_data = []
-    for emp in employees:
-        eid    = emp["id"]
-        rec    = existing.get(eid, {})
-        key_p  = f"present_{eid}"
-        key_a  = f"arrival_{eid}"
-        key_d  = f"depart_{eid}"
-        key_n  = f"notes_{eid}"
-
-        default_present = bool(rec.get("present", False))
-        default_arrival = time_str_to_obj(rec.get("arrival_time", ""))
-        default_depart  = time_str_to_obj(rec.get("departure_time", ""))
-
-        # get schedule for default times
-        sched = get_schedule(eid) or {}
-        def_in_t  = time_str_to_obj(sched.get("expected_in",  "09:00"))
-        def_out_t = time_str_to_obj(sched.get("expected_out", "18:00"))
-
-        # 1. ADDED: Set the default times in session state FIRST
-        if key_a not in st.session_state:
-            st.session_state[key_a] = default_arrival or def_in_t
-        if key_d not in st.session_state:
-            st.session_state[key_d] = default_depart or def_out_t
-
-        cols = st.columns([0.4, 2.5, 1.5, 1.2, 1.2, 1.5])
-        present  = cols[0].checkbox("", value=default_present, key=key_p, label_visibility="collapsed")
-        cols[1].markdown(f"**{emp['name']}**")
-        cols[2].markdown(f"<small style='color:#8b90a8'>{emp['role']}</small>", unsafe_allow_html=True)
-
-        if present:
-            # 2. CHANGED: Removed the 'value=' parameter so it reads from session state
-            arrival  = cols[3].time_input("In",  key=key_a,  label_visibility="collapsed", step=300)
-            departure= cols[4].time_input("Out", key=key_d,  label_visibility="collapsed", step=300)
-            
-            arr_str  = arrival.strftime("%H:%M")   if arrival    else ""
-            dep_str  = departure.strftime("%H:%M") if departure else ""
-            
-            # live status preview
-            from database import _calc_status
-            sch_in  = sched.get("expected_in", "09:00")
-            sch_out = sched.get("expected_out","18:00")
-            live_status = _calc_status(True, arr_str, dep_str, sch_in, sch_out)
-            cols[5].markdown(status_badge(live_status), unsafe_allow_html=True)
-        else:
-            cols[3].markdown("<span style='color:#3a3d50'>—</span>", unsafe_allow_html=True)
-            cols[4].markdown("<span style='color:#3a3d50'>—</span>", unsafe_allow_html=True)
-            cols[5].markdown(status_badge("Absent"), unsafe_allow_html=True)
-            arr_str = dep_str = ""
-
-        rows_data.append((eid, present, arr_str, dep_str))
-
-    st.markdown("---")
-
-    if save_all_btn:
-        for eid, present, arr, dep in rows_data:
-            upsert_attendance(eid, log_date_str, present, arr or None, dep or None)
-        st.success(f"✅  Attendance saved for **{log_date.strftime('%B %d, %Y')}** — {len(rows_data)} records updated.")
-
-    # ── Day Summary Strip ────────────────────────────────────────────────────
     saved_records = get_attendance_for_date(log_date_str)
-    if saved_records:
-        st.markdown('<div class="section-title">Today\'s Summary</div>', unsafe_allow_html=True)
+    existing = {r["employee_id"]: r for r in saved_records}
+
+    # --- STATE MANAGEMENT ---
+    # Keep track of which date we are actively editing
+    if "edit_date" not in st.session_state:
+        st.session_state.edit_date = None
+
+    # It is Edit Mode IF there are no records saved yet, OR if the user explicitly clicked edit for this date
+    is_edit_mode = (not saved_records) or (st.session_state.edit_date == log_date_str)
+
+    if is_edit_mode:
+        # ---------------------------------------------------------
+        # EDIT MODE: Display the Attendance Roster
+        # ---------------------------------------------------------
+        col_title, col_save = st.columns([2, 1])
+        with col_title:
+            st.markdown('<div class="section-title">Attendance Roster</div>', unsafe_allow_html=True)
+        with col_save:
+            st.markdown("<br>", unsafe_allow_html=True)
+            save_all_btn = st.button("💾  Save All Records", type="primary", use_container_width=True)
+
+        # Column headers
+        hdr = st.columns([0.4, 2.5, 1.5, 1.2, 1.2, 1.5])
+        for col, label in zip(hdr, ["✓", "Employee", "Role", "Arrival", "Departure", "Status"]):
+            col.markdown(f"**{label}**")
+        st.markdown('<hr style="margin:4px 0 10px 0">', unsafe_allow_html=True)
+
+        rows_data = []
+        for emp in employees:
+            eid    = emp["id"]
+            rec    = existing.get(eid, {})
+            key_p  = f"present_{eid}"
+            key_a  = f"arrival_{eid}"
+            key_d  = f"depart_{eid}"
+
+            default_present = bool(rec.get("present", False))
+            default_arrival = time_str_to_obj(rec.get("arrival_time", ""))
+            default_depart  = time_str_to_obj(rec.get("departure_time", ""))
+
+            # get schedule for default times
+            sched = get_schedule(eid) or {}
+            def_in_t  = time_str_to_obj(sched.get("expected_in",  "09:00"))
+            def_out_t = time_str_to_obj(sched.get("expected_out", "18:00"))
+
+            # Set the default times in session state FIRST (Prevents overwriting issue)
+            if key_a not in st.session_state:
+                st.session_state[key_a] = default_arrival or def_in_t
+            if key_d not in st.session_state:
+                st.session_state[key_d] = default_depart or def_out_t
+
+            cols = st.columns([0.4, 2.5, 1.5, 1.2, 1.2, 1.5])
+            present  = cols[0].checkbox("", value=default_present, key=key_p, label_visibility="collapsed")
+            cols[1].markdown(f"**{emp['name']}**")
+            cols[2].markdown(f"<small style='color:#8b90a8'>{emp['role']}</small>", unsafe_allow_html=True)
+
+            if present:
+                arrival  = cols[3].time_input("In",  key=key_a,  label_visibility="collapsed", step=300)
+                departure= cols[4].time_input("Out", key=key_d,  label_visibility="collapsed", step=300)
+                
+                arr_str  = arrival.strftime("%H:%M")   if arrival    else ""
+                dep_str  = departure.strftime("%H:%M") if departure else ""
+                
+                # live status preview
+                from database import _calc_status
+                sch_in  = sched.get("expected_in", "09:00")
+                sch_out = sched.get("expected_out","18:00")
+                live_status = _calc_status(True, arr_str, dep_str, sch_in, sch_out)
+                cols[5].markdown(status_badge(live_status), unsafe_allow_html=True)
+            else:
+                cols[3].markdown("<span style='color:#3a3d50'>—</span>", unsafe_allow_html=True)
+                cols[4].markdown("<span style='color:#3a3d50'>—</span>", unsafe_allow_html=True)
+                cols[5].markdown(status_badge("Absent"), unsafe_allow_html=True)
+                arr_str = dep_str = ""
+
+            rows_data.append((eid, present, arr_str, dep_str))
+
+        st.markdown("---")
+
+        if save_all_btn:
+            for eid, present, arr, dep in rows_data:
+                upsert_attendance(eid, log_date_str, present, arr or None, dep or None)
+            
+            # Clear edit mode to trigger View Mode
+            st.session_state.edit_date = None
+            st.rerun() # Forces page to refresh immediately
+
+    else:
+        # ---------------------------------------------------------
+        # VIEW MODE: Display Results & Edit Button
+        # ---------------------------------------------------------
+        col_title, col_edit = st.columns([2, 1])
+        with col_title:
+            st.markdown('<div class="section-title">Today\'s Summary</div>', unsafe_allow_html=True)
+        with col_edit:
+            st.markdown("<br>", unsafe_allow_html=True)
+            # Edit Button sets the session state to the current date and reloads
+            if st.button("✏️ Edit Attendance", use_container_width=True):
+                st.session_state.edit_date = log_date_str
+                st.rerun()
+
+        # Day Summary Strip
         c1, c2, c3, c4, c5 = st.columns(5)
         total   = len(saved_records)
         present_count = sum(1 for r in saved_records if r["present"])
         full    = sum(1 for r in saved_records if r["status"] == "Full Day")
         half    = sum(1 for r in saved_records if r["status"] in ("Half Day","Short Day"))
         absent  = sum(1 for r in saved_records if r["status"] == "Absent")
+        
         c1.metric("Total Staff",   total)
         c2.metric("Present",       present_count)
         c3.metric("Full Day",      full)
         c4.metric("Half/Short",    half)
         c5.metric("Absent",        absent)
-
-
+        
+        st.markdown("---")
+        
+        # Display a clean, read-only table of the records below the summary
+        st.markdown("**Logged Records:**")
+        display_df = pd.DataFrame(saved_records)[["name", "role", "arrival_time", "departure_time", "status"]]
+        display_df.columns = ["Employee", "Role", "Time In", "Time Out", "Final Status"]
+        display_df.fillna("—", inplace=True) # Replace empty times with dashes
+        st.dataframe(display_df, use_container_width=True, hide_index=True)
 # ════════════════════════════════════════════════════════════════════════════
 #  PAGE 2 — EMPLOYEES
 # ════════════════════════════════════════════════════════════════════════════
