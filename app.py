@@ -440,20 +440,22 @@ elif page_key == "Employees":
 elif page_key == "Monthly Report":
     st.markdown('<div class="section-title">Monthly Overview & Analytics</div>', unsafe_allow_html=True)
 
-    # Month / Year selectors (Calendar Style)
-    col_date, _ = st.columns([2, 4])
+   # Month / Year selectors (Dropdown Style)
+    col_m, col_y, _ = st.columns([2, 1, 3])
     
-    # Opens a calendar UI. The user picks any day in the target month.
-    selected_date = col_date.date_input(
-        "Select Month & Year",
-        value=date.today(),
-        min_value=date(2020, 1, 1),
-        max_value=date(2030, 12, 31)
-    )
+    months = ["January", "February", "March", "April", "May", "June", 
+              "July", "August", "September", "October", "November", "December"]
     
-    # Extract the integers so the rest of your code works perfectly without changes
-    year  = selected_date.year
-    month = selected_date.month
+    # Defaults based on today's date
+    current_month_idx = date.today().month - 1
+    current_year_idx = date.today().year - 2020
+    
+    # Render the dropdowns
+    month_name = col_m.selectbox("Month", months, index=current_month_idx)
+    year       = col_y.selectbox("Year", range(2020, 2031), index=current_year_idx)
+    
+    # Convert "January" back to 1, "February" to 2, etc. for your database
+    month = months.index(month_name) + 1
 
     summary = get_monthly_summary(int(year), int(month))
     month_name = calendar.month_name[int(month)]
