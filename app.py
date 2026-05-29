@@ -448,8 +448,7 @@ elif page_key == "Monthly Report":
         "Select Month & Year",
         value=date.today(),
         min_value=date(2020, 1, 1),
-        max_value=date(2030, 12, 31),
-        format="MM/YYYY"  # Hides the day in the text box (Requires Streamlit 1.28+)
+        max_value=date(2030, 12, 31)
     )
     
     # Extract the integers so the rest of your code works perfectly without changes
