@@ -139,7 +139,7 @@ st.markdown("""
     border: 1px solid #2a2d3e !important;
     color: #e8eaf0 !important;
     -webkit-text-fill-color: #e8eaf0 !important;
-    border-radius: 2px !important;
+    border-radius: 8px !important;
   }
 
   /* Remove Streamlit branding */
