@@ -72,17 +72,18 @@ st.markdown("""
   .badge-absent{ background:#3a1a1a; color:#f87171; border:1px solid #ef4444; border-radius:6px; padding:2px 10px; font-size:0.78rem; font-weight:600; }
   .badge-present{background:#1a2a3a; color:#60a5fa; border:1px solid #3b82f6; border-radius:6px; padding:2px 10px; font-size:0.78rem; font-weight:600; }
 
-  /* Header strip */
+ /* Header strip */
   .app-header {
-    background: linear-gradient(135deg, #1a1d2e 0%, #0f1117 100%);
-    border-bottom: 2px solid #2563eb;
+    /* Using brown to a slightly darker brown for the gradient */
+    background: linear-gradient(135deg, #765341 0%, #5a3f31 100%); 
+    border-bottom: 2px solid #8A9A5B; /* Sage Green */
     padding: 1rem 1.5rem;
     border-radius: 12px;
     margin-bottom: 1.5rem;
     display: flex; align-items: center; gap: 1rem;
   }
   .app-header h1 { margin:0; font-size:1.6rem; color:#f0f2ff; font-family:'Syne',sans-serif; font-weight:800; }
-  .app-header .company { color:#8b90a8; font-size:0.85rem; margin:0; }
+  .app-header .company { color:#e8eaf0; font-size:0.85rem; margin:0; }
 
   /* Row cards for attendance */
   .att-row {
