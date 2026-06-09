@@ -45,10 +45,10 @@ st.markdown("""
     font-family: 'Syne', sans-serif !important;
   }
 
-  /* Sidebar */
+/* Sidebar */
   [data-testid="stSidebar"] {
-    background: #0f1117;
-    border-right: 1px solid #1e2130;
+    background: #765341; /* Brown */
+    border-right: 1px solid #8A9A5B; /* Sage Green */
   }
   [data-testid="stSidebar"] * { color: #e8eaf0 !important; }
 
