@@ -198,7 +198,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-```
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 
 def status_badge(status: str) -> str:
