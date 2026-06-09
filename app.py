@@ -49,6 +49,7 @@ st.markdown("""
 html, body, [class*="css"] {
     font-family: 'DM Sans', sans-serif;
     : #28282B; /* Dark charcoal text for readability */
+    background-color: #FFFAF0 !important;
   }
 
   /* Target the main Streamlit app background */
@@ -69,12 +70,16 @@ html, body, [class*="css"] {
   [data-testid="stSidebar"] * { color: #e8eaf0 !important; }
 
   /* Main background */
-  .main .block-container { padding-top: 1.5rem; padding-bottom: 2rem; }
-    background: #FFFAFO;
+ /* Main background */
+  .main .block-container { 
+    padding-top: 1.5rem; 
+    padding-bottom: 2rem; 
+    background-color: #FFFAF0 !important;
+  }
 
   /* Metric cards */
   [data-testid="metric-container"] {
-    background: #FFFAFO;
+    background: #FFFAF0;
     border: 1px solid #2a2d3e;
     border-radius: 12px;
     padding: 1rem 1.25rem;
@@ -104,7 +109,7 @@ html, body, [class*="css"] {
 
 /* Row cards for attendance */
   .att-row {
-    background: #28282B; /* Pure white background to make the black text pop */
+    background: #FFFAF0; /* Pure white background to make the black text pop */
     border: 1px solid #e2e4e8; /* Light gray border */
     border-radius: 10px;
     padding: 0.6rem 1rem;
