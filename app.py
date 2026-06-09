@@ -1,5 +1,5 @@
 """
-app.py — Employee Attendance & Log Tracking Application
+bojdhoadosbnd app.py — Employee Attendance & Log Tracking Application
 Stack: Python · Streamlit · SQLite · Pandas · Plotly
 """
 
