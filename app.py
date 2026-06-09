@@ -93,16 +93,23 @@ html, body, [class*="css"] {
   .app-header h1 { margin:0; font-size:1.6rem; color:#f0f2ff; font-family:'Syne',sans-serif; font-weight:800; }
   .app-header .company { color:#e8eaf0; font-size:0.85rem; margin:0; }
 
-  /* Row cards for attendance */
+/* Row cards for attendance */
   .att-row {
-    background: #12151f;
-    border: 1px solid #1e2130;
+    background: #FFFFFF; /* Pure white background to make the black text pop */
+    border: 1px solid #e2e4e8; /* Light gray border */
     border-radius: 10px;
     padding: 0.6rem 1rem;
     margin-bottom: 0.4rem;
     transition: border-color 0.2s;
+    color: #28282B !important; /* Matte Black text */
   }
-  .att-row:hover { border-color: #2563eb; }
+  
+  /* Target all text elements inside the row */
+  .att-row * { 
+    color: #28282B !important; 
+  }
+  
+  .att-row:hover { border-color: #8A9A5B; } /* Sage Green hover */
 
   /* Section headers */
   .section-title {
