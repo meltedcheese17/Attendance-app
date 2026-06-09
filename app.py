@@ -33,32 +33,32 @@ st.set_page_config(
 )
 
 # ─── Custom CSS ───────────────────────────────────────────────────────────────
-st.markdown
+st.markdown("""
+/* Force Table Headers to be Matte Black */
   thead tr th, 
   tbody tr td, 
   table th, 
   table td, 
   [data-testid="stTable"] th, 
   [data-testid="stTable"] td {
-    color: #FFFAFO !important;
+    color: #28282B !important;
   }
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
 
 html, body, [class*="css"] {
     font-family: 'DM Sans', sans-serif;
-    : #28282B; /* Dark charcoal text for readability */
-    background-color: #FFFAF0 !important;
+    color: #28282B; /* Dark charcoal text for readability */
   }
 
   /* Target the main Streamlit app background */
   .stApp {
-    background-: #FFFAF0 !important; /* Floral White */
+    background-color: #FFFAF0 !important; /* Floral White */
   }
 
   h1, h2, h3, .stMarkdown h1, .stMarkdown h2 {
     font-family: 'Syne', sans-serif !important;
-    : #FFFAF0 !important; /* Making headers brown looks great on floral white */
+    color: #FFFAF0 !important; /* Making headers brown looks great on floral white */
   }
 
 /* Sidebar */
@@ -69,16 +69,12 @@ html, body, [class*="css"] {
   [data-testid="stSidebar"] * { color: #e8eaf0 !important; }
 
   /* Main background */
- /* Main background */
-  .main .block-container { 
-    padding-top: 1.5rem; 
-    padding-bottom: 2rem; 
-    background-color: #FFFAF0 !important;
-  }
+  .main .block-container { padding-top: 1.5rem; padding-bottom: 2rem; }
+    background: #FFFAFO;
 
   /* Metric cards */
   [data-testid="metric-container"] {
-    background: #FFFAF0;
+    background: #FFFAFO;
     border: 1px solid #2a2d3e;
     border-radius: 12px;
     padding: 1rem 1.25rem;
@@ -108,7 +104,7 @@ html, body, [class*="css"] {
 
 /* Row cards for attendance */
   .att-row {
-    background: #FFFAF0; /* Pure white background to make the black text pop */
+    background: #28282B; /* Pure white background to make the black text pop */
     border: 1px solid #e2e4e8; /* Light gray border */
     border-radius: 10px;
     padding: 0.6rem 1rem;
@@ -209,6 +205,7 @@ html, body, [class*="css"] {
   .stTabs [aria-selected="true"] { background: #1a1d2e !important; color: #28282B !important; }
 </style>
 """, unsafe_allow_html=True)
+
 
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 
