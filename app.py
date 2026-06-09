@@ -70,8 +70,8 @@ html, body, [class*="css"] {
     border-radius: 12px;
     padding: 1rem 1.25rem;
   }
-  [data-testid="metric-container"] label { color: #8b90a8 !important; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; }
-  [data-testid="metric-container"] [data-testid="stMetricValue"] { color: #f0f2ff !important; font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 700; }
+  [data-testid="metric-container"] label { color: #28282B !important; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  [data-testid="metric-container"] [data-testid="stMetricValue"] { color: #28282B !important; font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 700; }
 
   /* Status badges */
   .badge-full  { background:#1a3a2a; color:#4ade80; border:1px solid #22c55e; border-radius:6px; padding:2px 10px; font-size:0.78rem; font-weight:600; }
