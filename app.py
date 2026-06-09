@@ -34,38 +34,7 @@ st.set_page_config(
 
 # ─── Custom CSS ───────────────────────────────────────────────────────────────
 st.markdown("""
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
-
-  /* Global Text & Background */
-  html, body, [class*="css"] {
-    font-family: 'DM Sans', sans-serif;
-    color: #28282B !important; /* Matte Black */
-  }
-
-  .stApp {
-    background-color: #FFFAF0 !important; /* Floral White */
-  }
-
-  h1, h2, h3, .stMarkdown h1, .stMarkdown h2 {
-    font-family: 'Syne', sans-serif !important;
-    color: #28282B !important; /* Matte Black */
-  }
-
-  /* Sidebar */
-  [data-testid="stSidebar"] {
-    background: #765341; /* Brown */
-    border-right: 1px solid #8A9A5B; /* Sage Green */
-  }
-  [data-testid="stSidebar"] * { color: #e8eaf0 !important; }
-
-  /* Main background container */
-  .main .block-container { 
-    padding-top: 1.5rem; 
-    padding-bottom: 2rem; 
-  }
-
-  /* Force Table Headers to be Matte Black */
+/* Force Table Headers to be Matte Black */
   thead tr th, 
   tbody tr td, 
   table th, 
@@ -74,23 +43,43 @@ st.markdown("""
   [data-testid="stTable"] td {
     color: #28282B !important;
   }
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
 
-  /* Data tables */
-  .stDataFrame, [data-testid="stTable"] { 
-    border: 1px solid #e2e4e8; 
-    border-radius: 10px; 
-    overflow: hidden; 
-    background: #FFFFFF; 
+html, body, [class*="css"] {
+    font-family: 'DM Sans', sans-serif;
+    : #28282B; /* Dark charcoal text for readability */
   }
+
+  /* Target the main Streamlit app background */
+  .stApp {
+    background-: #FFFAF0 !important; /* Floral White */
+  }
+
+  h1, h2, h3, .stMarkdown h1, .stMarkdown h2 {
+    font-family: 'Syne', sans-serif !important;
+    : #FFFAF0 !important; /* Making headers brown looks great on floral white */
+  }
+
+/* Sidebar */
+  [data-testid="stSidebar"] {
+    background: #765341; /* Brown */
+
+  }
+  [data-testid="stSidebar"] * { color: #e8eaf0 !important; }
+
+  /* Main background */
+  .main .block-container { padding-top: 1.5rem; padding-bottom: 2rem; }
+    background: #FFFAFO;
 
   /* Metric cards */
   [data-testid="metric-container"] {
-    background: #FFFFFF; /* White background for contrast */
-    border: 1px solid #e2e4e8;
+    background: #FFFAFO;
+    border: 1px solid #2a2d3e;
     border-radius: 12px;
     padding: 1rem 1.25rem;
   }
-  [data-testid="metric-container"] label { color: #28282B !important; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.8; }
+  [data-testid="metric-container"] label { color: #28282B !important; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; }
   [data-testid="metric-container"] [data-testid="stMetricValue"] { color: #28282B !important; font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 700; }
 
   /* Status badges */
@@ -100,21 +89,22 @@ st.markdown("""
   .badge-absent{ background:#3a1a1a; color:#f87171; border:1px solid #ef4444; border-radius:6px; padding:2px 10px; font-size:0.78rem; font-weight:600; }
   .badge-present{background:#1a2a3a; color:#60a5fa; border:1px solid #3b82f6; border-radius:6px; padding:2px 10px; font-size:0.78rem; font-weight:600; }
 
-  /* Header strip */
+ /* Header strip */
   .app-header {
-    background: linear-gradient(135deg, #765341 0%, #5a3f31 100%); /* Brown gradient */
+    /* Using brown to a slightly darker brown for the gradient */
+    background: linear-gradient(135deg, #8A9A5B 0%, #5a3f31 100%); 
     border-bottom: 2px solid #8A9A5B; /* Sage Green */
     padding: 1rem 1.5rem;
     border-radius: 12px;
     margin-bottom: 1.5rem;
     display: flex; align-items: center; gap: 1rem;
   }
-  .app-header h1 { margin:0; font-size:1.6rem; color:#FFFAF0; font-family:'Syne',sans-serif; font-weight:800; }
-  .app-header .company { color:#FFFAF0; font-size:0.85rem; margin:0; opacity: 0.8; }
+  .app-header h1 { margin:0; font-size:1.6rem; color:#f0f2ff; font-family:'Syne',sans-serif; font-weight:800; }
+  .app-header .company { color:#e8eaf0; font-size:0.85rem; margin:0; }
 
-  /* Row cards for attendance */
+/* Row cards for attendance */
   .att-row {
-    background: #FFFFFF; /* Pure white background to make the black text pop */
+    background: #28282B; /* Pure white background to make the black text pop */
     border: 1px solid #e2e4e8; /* Light gray border */
     border-radius: 10px;
     padding: 0.6rem 1rem;
@@ -122,7 +112,12 @@ st.markdown("""
     transition: border-color 0.2s;
     color: #28282B !important; /* Matte Black text */
   }
-  .att-row * { color: #28282B !important; }
+  
+  /* Target all text elements inside the row */
+  .att-row * { 
+    color: #28282B !important; 
+  }
+  
   .att-row:hover { border-color: #8A9A5B; } /* Sage Green hover */
 
   /* Section headers */
@@ -131,70 +126,83 @@ st.markdown("""
     font-size: 1.1rem;
     font-weight: 700;
     color: #28282B;
-    border-left: 3px solid #8A9A5B; /* Sage Green */
+    border-left: 3px solid #2563eb;
     padding-left: 0.75rem;
     margin: 1.5rem 0 1rem 0;
   }
+
+  /* Data tables */
+  .stDataFrame { border: 1px solid #28282B; border-radius: 10px; overflow: hidden; }
 
   /* Buttons */
   .stButton > button {
     border-radius: 8px;
     font-family: 'DM Sans', sans-serif;
     font-weight: 500;
-    border: 1px solid #8A9A5B;
-    background: transparent;
+    border: 1px solid #2a2d3e;
+    background: #1a1d2e;
     color: #28282B;
     transition: all 0.15s;
   }
-  .stButton > button:hover, .stButton > button[kind="primary"] {
-    background: #8A9A5B; /* Sage Green */
-    border-color: #8A9A5B;
-    color: #fff !important;
+  .stButton > button:hover {
+    background: #28282B;
+    border-color: #28282B;
+    color: #fff;
+  }
+  .stButton > button[kind="primary"] {
+    background: #28282B;
+    border-color: #28282B;
+    color: #fff;
   }
 
+  /* Inputs */
   /* Inputs - Outer Wrappers */
   div[data-testid="stTextInput"] div[data-baseweb="input"],
   div[data-testid="stSelectbox"] div[data-baseweb="select"],
   div[data-testid="stTimeInput"] div[data-baseweb="select"],
   div[data-testid="stTimeInput"] div[data-baseweb="input"] {
-    background-color: #FFFFFF !important; /* White background for inputs */
-    border: 1px solid #e2e4e8 !important;
+    background-color: #28282B !important;
+    border: 1px solid #2a2d3e !important;
     border-radius: 8px !important;
   }
 
   /* Inputs - Inner Text Fields */
   div[data-testid="stTextInput"] input,
   div[data-testid="stTimeInput"] input,
-  div[data-testid="stSelectbox"] input,
-  div[data-testid="stSelectbox"] span {
-    color: #28282B !important; /* Matte Black */
+  div[data-testid="stSelectbox"] input {
+    color: #28282B !important;
     -webkit-text-fill-color: #28282B !important;
-    background-color: transparent !important;
+    background-color: transparent !important; /* This removes the blocking box */
     border: none !important;
   }
 
   /* Remove Streamlit branding */
-  #MainMenu, footer { visibility: hidden; }
+  #MainMenu, footer, { visibility: hidden; }
   header { background: transparent !important; }
 
   /* Divider */
-  hr { border-color: #e2e4e8; }
+  hr { border-color: #1e2130; }
+
+  /* Toast / success message */
+  .stSuccess { background: #1a3a2a; border: 1px solid #22c55e; border-radius: 8px; }
+  .stError   { background: #3a1a1a; border: 1px solid #ef4444; border-radius: 8px; }
+  .stWarning { background: #3a2a0a; border: 1px solid #f59e0b; border-radius: 8px; }
 
   /* Expander */
   .streamlit-expanderHeader {
-    background: #FFFFFF !important;
-    border: 1px solid #e2e4e8 !important;
+    background: #12151f !important;
+    border: 1px solid #1e2130 !important;
     border-radius: 8px !important;
     color: #28282B !important;
   }
 
   /* Tabs */
-  .stTabs [data-baseweb="tab-list"] { gap: 4px; background: #e2e4e8; border-radius: 10px; padding: 4px; }
+  .stTabs [data-baseweb="tab-list"] { gap: 4px; background: #0f1117; border-radius: 10px; padding: 4px; }
   .stTabs [data-baseweb="tab"] {
     background: transparent; border-radius: 8px; color: #28282B;
-    font-family: 'DM Sans', sans-serif; font-weight: 500; opacity: 0.7;
+    font-family: 'DM Sans', sans-serif; font-weight: 500;
   }
-  .stTabs [aria-selected="true"] { background: #765341 !important; color: #fff !important; opacity: 1; }
+  .stTabs [aria-selected="true"] { background: #1a1d2e !important; color: #28282B !important; }
 </style>
 """, unsafe_allow_html=True)
 
