@@ -95,7 +95,7 @@ html, body, [class*="css"] {
 
 /* Row cards for attendance */
   .att-row {
-    background: #FFFFFF; /* Pure white background to make the black text pop */
+    background: #28282B; /* Pure white background to make the black text pop */
     border: 1px solid #e2e4e8; /* Light gray border */
     border-radius: 10px;
     padding: 0.6rem 1rem;
@@ -132,7 +132,7 @@ html, body, [class*="css"] {
     font-weight: 500;
     border: 1px solid #2a2d3e;
     background: #1a1d2e;
-    color: #e8eaf0;
+    color: #28282B;
     transition: all 0.15s;
   }
   .stButton > button:hover {
