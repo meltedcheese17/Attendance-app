@@ -75,7 +75,7 @@ st.markdown("""
  /* Header strip */
   .app-header {
     /* Using brown to a slightly darker brown for the gradient */
-    background: linear-gradient(135deg, #765341 0%, #5a3f31 100%); 
+    background: linear-gradient(135deg, #8A9A5B 0%, #5a3f31 100%); 
     border-bottom: 2px solid #8A9A5B; /* Sage Green */
     padding: 1rem 1.5rem;
     border-radius: 12px;
