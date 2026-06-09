@@ -33,15 +33,14 @@ st.set_page_config(
 )
 
 # ─── Custom CSS ───────────────────────────────────────────────────────────────
-st.markdown("""
-/* Force Table Headers to be Matte Black */
+st.markdown
   thead tr th, 
   tbody tr td, 
   table th, 
   table td, 
   [data-testid="stTable"] th, 
   [data-testid="stTable"] td {
-    color: #FFFAF0 !important;
+    color: #FFFAFO !important;
   }
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
