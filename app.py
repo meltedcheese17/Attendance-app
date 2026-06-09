@@ -145,7 +145,7 @@ html, body, [class*="css"] {
   div[data-testid="stSelectbox"] div[data-baseweb="select"],
   div[data-testid="stTimeInput"] div[data-baseweb="select"],
   div[data-testid="stTimeInput"] div[data-baseweb="input"] {
-    background-color: #12151f !important;
+    background-color: #28282B !important;
     border: 1px solid #2a2d3e !important;
     border-radius: 8px !important;
   }
@@ -154,8 +154,8 @@ html, body, [class*="css"] {
   div[data-testid="stTextInput"] input,
   div[data-testid="stTimeInput"] input,
   div[data-testid="stSelectbox"] input {
-    color: #e8eaf0 !important;
-    -webkit-text-fill-color: #e8eaf0 !important;
+    color: #28282B !important;
+    -webkit-text-fill-color: #28282B !important;
     background-color: transparent !important; /* This removes the blocking box */
     border: none !important;
   }
@@ -177,16 +177,16 @@ html, body, [class*="css"] {
     background: #12151f !important;
     border: 1px solid #1e2130 !important;
     border-radius: 8px !important;
-    color: #e8eaf0 !important;
+    color: #28282B !important;
   }
 
   /* Tabs */
   .stTabs [data-baseweb="tab-list"] { gap: 4px; background: #0f1117; border-radius: 10px; padding: 4px; }
   .stTabs [data-baseweb="tab"] {
-    background: transparent; border-radius: 8px; color: #8b90a8;
+    background: transparent; border-radius: 8px; color: #28282B;
     font-family: 'DM Sans', sans-serif; font-weight: 500;
   }
-  .stTabs [aria-selected="true"] { background: #1a1d2e !important; color: #e8eaf0 !important; }
+  .stTabs [aria-selected="true"] { background: #1a1d2e !important; color: #28282B !important; }
 </style>
 """, unsafe_allow_html=True)
 
