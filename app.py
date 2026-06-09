@@ -37,12 +37,19 @@ st.markdown("""
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
 
-  html, body, [class*="css"] {
+html, body, [class*="css"] {
     font-family: 'DM Sans', sans-serif;
-    color:white;
+    color: #2a2d3e; /* Dark charcoal text for readability */
   }
+
+  /* Target the main Streamlit app background */
+  .stApp {
+    background-color: #FFFAF0 !important; /* Floral White */
+  }
+
   h1, h2, h3, .stMarkdown h1, .stMarkdown h2 {
     font-family: 'Syne', sans-serif !important;
+    color: #765341 !important; /* Making headers brown looks great on floral white */
   }
 
 /* Sidebar */
