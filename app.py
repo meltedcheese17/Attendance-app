@@ -54,6 +54,7 @@ st.markdown("""
 
   /* Main background */
   .main .block-container { padding-top: 1.5rem; padding-bottom: 2rem; }
+    background: #FFFAFO;
 
   /* Metric cards */
   [data-testid="metric-container"] {
