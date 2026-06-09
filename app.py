@@ -32,21 +32,6 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-I spotted exactly why the table headers aren't changing, along with a few minor syntax typos that are likely breaking other parts of your design!
-
-Here is what went wrong:
-
-1. **The `<style>` tag placement:** The new code for the table headers was pasted *above* the `<style>` tag, meaning Streamlit just reads it as plain text instead of CSS. It must go inside the tags.
-2. **Missing property names:** In a few places (like `html, body` and `h1, h2`), the word `color` got deleted, leaving just `: #28282B;`. CSS will ignore this.
-3. **Orphaned properties:** The background for your main container was left outside its curly braces `{}`.
-4. **Black-on-Black Contrast:** Your `.att-row` background got set to `#28282B` (black), but the text is also `#28282B`, which will make the text invisible! I changed the background back to `#FFFFFF` (white) so the dark text pops, as your comment originally intended.
-
-I have cleaned up the syntax errors, fixed the tags, and ensured your Sage Green, Brown, Floral White, and Matte Black theme is applied correctly.
-
-**Copy and paste this entire block to replace your current code:**
-
-```python
-
 # ─── Custom CSS ───────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
