@@ -147,12 +147,12 @@ html, body, [class*="css"] {
   .stButton > button:hover {
     background: #28282B;
     border-color: #28282B;
-    color: #28282B;
+    color: #fff;
   }
   .stButton > button[kind="primary"] {
     background: #28282B;
     border-color: #28282B;
-    color: #28282B;
+    color: #fff;
   }
 
   /* Inputs */
