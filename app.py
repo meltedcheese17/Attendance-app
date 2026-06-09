@@ -39,7 +39,7 @@ st.markdown("""
 
 html, body, [class*="css"] {
     font-family: 'DM Sans', sans-serif;
-    color: #2a2d3e; /* Dark charcoal text for readability */
+    color: #28282B; /* Dark charcoal text for readability */
   }
 
   /* Target the main Streamlit app background */
@@ -49,7 +49,7 @@ html, body, [class*="css"] {
 
   h1, h2, h3, .stMarkdown h1, .stMarkdown h2 {
     font-family: 'Syne', sans-serif !important;
-    color: #FFFAFO !important; /* Making headers brown looks great on floral white */
+    color: #28282B !important; /* Making headers brown looks great on floral white */
   }
 
 /* Sidebar */
