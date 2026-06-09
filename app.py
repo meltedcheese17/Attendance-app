@@ -125,7 +125,7 @@ html, body, [class*="css"] {
     font-family: 'Syne', sans-serif;
     font-size: 1.1rem;
     font-weight: 700;
-    color: #e8eaf0;
+    color: #28282B;
     border-left: 3px solid #2563eb;
     padding-left: 0.75rem;
     margin: 1.5rem 0 1rem 0;
@@ -235,7 +235,7 @@ def time_str_to_obj(t: str):
 
 with st.sidebar:
     company_name = get_setting("company_name", "My Company")
-    st.markdown(f"## 📋 AttendIQ")
+    st.markdown(f"## 📋 CILLI")
     st.markdown(f"*{company_name}*")
     st.markdown("---")
 
@@ -255,7 +255,7 @@ today_label  = date.today().strftime("%A, %B %d %Y")
 st.markdown(
     f"""<div class="app-header">
       <div>
-        <h1>📋 AttendIQ</h1>
+        <h1>📋 CILLI</h1>
         <p class="company">{company_name} &nbsp;·&nbsp; {today_label}</p>
       </div>
     </div>""",
