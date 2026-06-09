@@ -26,7 +26,7 @@ init_db()
 
 # ─── Page Config ──────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="AttendIQ",
+    page_title="CILLI",
     page_icon="📋",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -132,7 +132,7 @@ html, body, [class*="css"] {
   }
 
   /* Data tables */
-  .stDataFrame { border: 1px solid #1e2130; border-radius: 10px; overflow: hidden; }
+  .stDataFrame { border: 1px solid #28282B; border-radius: 10px; overflow: hidden; }
 
   /* Buttons */
   .stButton > button {
@@ -145,14 +145,14 @@ html, body, [class*="css"] {
     transition: all 0.15s;
   }
   .stButton > button:hover {
-    background: #2563eb;
-    border-color: #2563eb;
-    color: #fff;
+    background: #28282B;
+    border-color: #28282B;
+    color: #28282B;
   }
   .stButton > button[kind="primary"] {
-    background: #2563eb;
-    border-color: #2563eb;
-    color: #fff;
+    background: #28282B;
+    border-color: #28282B;
+    color: #28282B;
   }
 
   /* Inputs */
