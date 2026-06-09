@@ -49,7 +49,7 @@ html, body, [class*="css"] {
 
   h1, h2, h3, .stMarkdown h1, .stMarkdown h2 {
     font-family: 'Syne', sans-serif !important;
-    color: #765341 !important; /* Making headers brown looks great on floral white */
+    color: #FFFAFO !important; /* Making headers brown looks great on floral white */
   }
 
 /* Sidebar */
