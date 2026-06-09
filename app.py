@@ -48,7 +48,7 @@ st.markdown("""
 /* Sidebar */
   [data-testid="stSidebar"] {
     background: #765341; /* Brown */
-    border-right: 1px solid #8A9A5B; /* Sage Green */
+
   }
   [data-testid="stSidebar"] * { color: #e8eaf0 !important; }
 
@@ -57,7 +57,7 @@ st.markdown("""
 
   /* Metric cards */
   [data-testid="metric-container"] {
-    background: #1a1d2e;
+    background: #FFFAFO;
     border: 1px solid #2a2d3e;
     border-radius: 12px;
     padding: 1rem 1.25rem;
